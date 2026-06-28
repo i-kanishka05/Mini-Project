@@ -27,4 +27,4 @@ https://dummyjson.com/products
 - style.css
 
 ## Author
-Kanishka
+Kanishka Kaushik
