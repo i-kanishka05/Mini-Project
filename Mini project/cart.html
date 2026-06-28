@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart</title>
+</head>
+
+<body>
+
+<h1>My Cart</h1>
+
+<main></main>
+
+<h2 id="bill"></h2>
+
+<script>
+
+let main=document.querySelector("main");
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let total=0;
+
+cart.forEach((el,index)=>{
+
+let div=document.createElement("div");
+
+let img=document.createElement("img");
+img.src=el.thumbnail;
+img.style.width="150px";
+
+let title=document.createElement("h2");
+title.innerText=el.title;
+
+let price=document.createElement("h3");
+
+let amount=Math.ceil(el.price*95);
+
+price.innerText="Rs "+amount;
+
+total+=amount;
+
+let btn=document.createElement("button");
+
+btn.innerText="Remove";
+
+btn.onclick=function(){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+location.reload();
+
+}
+
+div.append(img,title,price,btn);
+
+main.append(div);
+
+})
+
+document.getElementById("bill").innerText="Total Bill = Rs "+total;
+
+</script>
+
+</body>
+</html>

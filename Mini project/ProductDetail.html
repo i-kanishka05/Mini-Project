@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+</head>
+<body>
+
+<main></main>
+
+<script>
+
+let urlData = new URLSearchParams(window.location.search);
+let id = urlData.get("id");
+
+let main = document.querySelector("main");
+
+async function productFetch(){
+
+    let res = await fetch(`https://dummyjson.com/products/${id}`);
+    let pdata = await res.json();
+
+    let heading = document.createElement("h1");
+    heading.innerText = pdata.title;
+
+    let image = document.createElement("img");
+    image.src = pdata.thumbnail;
+    image.style.width = "300px";
+
+    let description = document.createElement("p");
+    description.innerText = pdata.description;
+
+    let price = document.createElement("h3");
+    price.innerText = "Rs " + Math.ceil(pdata.price * 95);
+
+    let cart = document.createElement("button");
+    cart.innerText = "Add To Cart";
+
+    cart.onclick = function(){
+
+        let cartData = JSON.parse(localStorage.getItem("cart")) || [];
+
+        cartData.push(pdata);
+
+        localStorage.setItem("cart", JSON.stringify(cartData));
+
+        alert("Product Added Successfully");
+
+    }
+
+    main.append(heading, image, description, price, cart);
+
+}
+
+productFetch();
+
+</script>
+
+</body>
+</html>
